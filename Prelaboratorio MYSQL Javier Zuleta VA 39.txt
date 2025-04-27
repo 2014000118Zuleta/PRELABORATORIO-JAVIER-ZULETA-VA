@@ -1,0 +1,129 @@
+CREATE DATABASE LAB; /*Creando la base de datos con nombre “PRELAB” */
+USE LAB; /* Indicar que base de datos se va a usar para el ejercicio. */
+
+CREATE TABLE categoria(  /*Creando la primera tabla llamada categoria*/
+	idCategoria INT (11) PRIMARY KEY, /*Poniendo la primera variable de la tabla siendo llave primaria*/
+	Nombre VARCHAR(45) /*Segunda variable de tipo Varchar de hasta 45 caracteres*/
+);
+INSERT INTO categoria VALUES
+(1,"Comedia"), /*Primer valor con su llave primaria y su segunda variable “Nombre” */
+(2,"Drama"), /*Segundo valor con su llave primaria y su segunda variable “Nombre” */
+(3,"Infantil"), /*Tercer valor con su llave primaria y su segunda variable “Nombre” */
+(4,"Acción"), /*Cuarto valor con su llave primaria y su segunda variable “Nombre” */
+(5,"Miedo"); /*Quinto valor con su llave primaria y su segunda variable “Nombre” */
+SELECT * FROM categoria; /*Seleccionando que los datos van a la tabla categoria*/
+SELECT * FROM categoria ORDER BY Nombre ASC; /*Seleccionando que los nombres estén de forma ascendente */
+ 
+CREATE TABLE Peliculas( /*Creando la segunda tabla llamada Peliculas*/
+	idPeliculas INT (11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+	Nombre VARCHAR (45), /*segunda variable de tipo varchar con 45 caracteres max */
+	Duracion INT (11), /*tercera variable tipo entera con 11 caracteres max*/
+	Descripción TEXT, /*cuarta variable de tipo texto*/
+	Año INT (11), /*quinta variable de tipo entera con 11 caracteres max*/
+    idCategoria INT (11), /*sexta variable de tipo entera con 11 caracteres max*/
+	FOREIGN KEY (idCategoria) REFERENCES categoria(idCategoria) /*llave foranea idCategoria, con referencia de la tabla de categoria*/
+); 
+INSERT INTO Peliculas VALUES /*Insertando valores en la tabla Peliculas*/
+(1,"Pokemon1","104","Pelicula Animada de Pokemon","2000","4"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"Son como niños","102","Pelicula de comedia de Adam Sandler","2010","1"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"Conclave","120","Pelicula de drama, luego de la muerte del papa","2024","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"Toy Story","81","Pelicula de Juguetes","1995","3"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"Eso","135","Pelicula de miedo sobre un payaso","2017","5"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM Peliculas; /*Seleccionando que los datos van a la tabla Peliculas*/
+SELECT * FROM Peliculas ORDER BY Año DESC;  /*Seleccionando que los nombres estén de forma descendente */
+DELETE FROM Peliculas WHERE Nombre = "Pokemon1"; /*Eliminando de la tabla peliculas todos los datos en la columna nombre que digan Pokemon1*/
+
+CREATE TABLE Inventarios( /*Creando la tercera tabla llamada Inventarios*/
+	idCopiasPeliculas INT (11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+    Peliculas_idPeliculas INT (11), /*Segunda variable de tipo entera con 11 caracteres max*/
+    Disponible TINYINT (1), /*Tercera variable de tipo TINYINT con 1 caracter max*/
+    FOREIGN KEY (Peliculas_idPeliculas) REFERENCES Peliculas(idPeliculas)  /*llave foranea Peliculas_idPeliculas, con referencia de la tabla de Peliculas*/
+);
+INSERT INTO Inventarios VALUES /*Insertando valores en la tabla Inventarios*/
+(1,"2","1"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"1","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"4","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"3","3"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"5","4"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM Inventarios; /*Seleccionando que los datos van a la tabla Inventarios*/
+
+CREATE TABLE direccionn( /*Creando la Cuarta tabla llamada direccionn*/
+	IdDireccion INT (11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+    Direccion VARCHAR(45), /*segunda variable de tipo varchar con 45 caracteres max */
+    Ciudad VARCHAR(45), /*tercera variable de tipo varchar con 45 caracteres max */
+    Pais VARCHAR(45) /*cuarta variable de tipo varchar con 45 caracteres max */
+);
+INSERT INTO direccionn VALUES /*Insertando valores en la tabla direccionn*/
+(1,"Colonia Cañadas","CDMX","Mexico"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"Avenida nueve de mayo","Buenos Aires","Argentina"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"Gran Vía","Madrid","España"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"Mixco, Zona 4","Guatemala","Guatemala"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"Colonia primero de julio","San Pedro Sula","Honduras"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM direccionn; /*Seleccionando que los datos van a la tabla direccionn*/
+
+CREATE TABLE cliente( /*Creando la quinta tabla llamada cliente*/
+	idCliente INT (11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+    Nombre VARCHAR(45), /*segunda variable de tipo varchar con 45 caracteres max */
+    Apellido VARCHAR (45), /*tercera variable de tipo varchar con 45 caracteres max */
+    Edad INT (11), /*cuarta variable de tipo entera con 11 caracteres max*/
+    direccion_IdDireccion INT (11), /*quinta variable de tipo entera con 11 caracteres max*/
+    FOREIGN KEY (direccion_IdDireccion) REFERENCES direccionn(IdDireccion) /*llave foranea direccion_IdDireccion, con referencia de la tabla de direccionn*/
+);
+INSERT INTO cliente VALUES /*Insertando valores en la tabla cliente*/
+(1,"Juliana","Perez","54","1"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"Diego","Samayoa","30","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"Ana","Gonzales","45","3"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"Javier","Lopez","25","4"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"Joaquin","Lucero","32","5"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM cliente; /*Seleccionando que los datos van a la tabla direccionn*/
+SELECT * FROM cliente WHERE Nombre = "Juliana"; /*Seleccionando que solo muestre de la tabla cliente los registros solo con nombre Juliana*/
+
+CREATE TABLE Renta( /*Creando la sexta tabla llamada Renta*/
+	idRenta INT (11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+    Fecha_Renta DATE,/*Segunda variable de tipo Date para fechas*/
+    Fecha_Entrega DATE, /*Tercera variable de tipo Date para fechas*/
+    Inventario_idCopiasPeliculas INT (11), /*cuarta variable de tipo entera con 11 caracteres max*/
+    Cliente_idCliente INT (11), /*quinta variable de tipo entera con 11 caracteres max*/
+    FOREIGN KEY (Inventario_idCopiasPeliculas) REFERENCES Inventarios(idCopiasPeliculas), /*llave foranea Inventario_idCopiasPeliculas, con referencia de la tabla de Inventario*/
+    FOREIGN KEY (Cliente_idCliente) REFERENCES cliente(idCliente) /*llave foranea Cliente_idCliente, con referencia de la tabla de cliente*/
+); 
+INSERT INTO Renta VALUES /*Insertando valores en la tabla cliente*/
+(1,"2023-01-10","2023-01-20","1","1"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"2024-10-20","2024-10-25","2","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"2025-07-05","2025-07-08","4","3"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"2025-12-18","2025-12-23","5","4"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"2025-09-28","2025-10-01","3","5"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM Renta; /*Seleccionando que los datos van a la tabla Renta*/
+
+CREATE TABLE Reseña( /*Creando la septima tabla llamada Reseña*/
+	IdReseña INT(11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+    NombrePelicula VARCHAR (45), /*segunda variable de tipo varchar con 45 caracteres max */
+    Reseña TEXT, /*tercera variable de tipo texto*/
+    Peliculas_idPeliculas INT(11), /*cuarta variable de tipo entera con 11 caracteres max*/
+    FOREIGN KEY (Peliculas_idPeliculas) REFERENCES Peliculas(idPeliculas) /*llave foranea Peliculas_idPeliculas, con referencia de la tabla de Peliculas*/
+);
+INSERT INTO Reseña VALUES /*Insertando valores en la tabla Reseña*/
+(1,"Eso","Muy buena pelicula con suspenso constante","5"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"Pokemon1","Pelicula animada con una buena acción","1"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"Son como niños","Excelente Pelicula para matarse de la risa","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"Conclave","Pelicula con un excelente drama","3"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"Toy Story","Pelicula para ver en familia y pasarla bien","4"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM Reseña; /*Seleccionando que los datos van a la tabla Reseña*/
+
+CREATE TABLE Vendedor( /*Creando la octava tabla llamada Vendedor*/
+	IdVendedor INT(11) PRIMARY KEY, /*Primera variable de tipo entera siendo primaria*/
+    Nombre VARCHAR(45), /*segunda variable de tipo varchar con 45 caracteres max */
+    Edad VARCHAR (45), /*tercera variable de tipo varchar con 45 caracteres max */
+    Renta_idRenta INT (11), /*cuarta variable de tipo entera con 11 caracteres max*/
+    Cliente_idCliente INT (11), /*quinta variable de tipo entera con 11 caracteres max*/
+    FOREIGN KEY (Renta_idRenta) REFERENCES renta(idRenta), /*llave foranea Renta_idRenta, con referencia de la tabla de renta*/
+    FOREIGN KEY (Cliente_idCliente) REFERENCES cliente(idCliente) /*llave foranea Cliente_idCliente, con referencia de la tabla de cliente*/
+);
+INSERT INTO Vendedor VALUES /*Insertando valores en la tabla Vendedor*/
+(1,"Martin","31","1","2"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(2,"Juliana","25","2","3"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(3,"Pedro","46","3","1"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(4,"Eric","53","4","5"), /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+(5,"José","61","5","4"); /*Insertando Valor de llave primaria y los demas datos solicitados por la tabla */
+SELECT * FROM Vendedor; /*Seleccionando que los datos van a la tabla Vendedor*/
+SELECT * FROM Vendedor WHERE Nombre = "Juliana"; /*Seleccionando que solo muestre de la tabla Vendedor los registros solo con nombre Juliana*/
